@@ -6,7 +6,8 @@ const {
   globalShortcut,
   Menu,
   ipcMain,
-  systemPreferences
+  systemPreferences,
+  session
 } = require("electron");
 const path = require("path");
 const fs = require("fs");
@@ -19,6 +20,8 @@ const { setMac, calcYTViewSize } = require("./utils/calcYTViewSize");
 const { isWindows, isMac } = require("./utils/systemInfo");
 const isDev = require("electron-is-dev");
 const isOnline = require("is-online");
+const fetch = require("cross-fetch");
+const { ElectronBlocker, fullLists } = require("@cliqz/adblocker-electron");
 const {
   companionUrl,
   companionWindowTitle,
@@ -66,7 +69,7 @@ if (isWindows()) {
   Menu.setApplicationMenu(menu);
 }
 
-function createWindow() {
+async function createWindow() {
   if (isMac() || isWindows()) {
     const execApp = path.basename(process.execPath);
     const startArgs = ["--processStart", `"${execApp}"`];
@@ -126,6 +129,9 @@ function createWindow() {
       nodeIntegration: true
     }
   });
+
+  const adblocker = await ElectronBlocker.fromLists(fetch, fullLists);
+  adblocker.enableBlockingInSession(session.defaultSession);
 
   mainWindow.loadFile("./pages/index.html");
   mainWindow.setBrowserView(view);
@@ -717,7 +723,7 @@ function createLyricsWindow() {
     }
   });
   lyrics.loadFile(path.join(__dirname, "./pages/lyrics.html"));
-  //lyrics.webContents.openDevTools();
+  lyrics.webContents.openDevTools();
 }
 
 function logDebug(data) {

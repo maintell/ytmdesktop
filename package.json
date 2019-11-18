@@ -35,6 +35,8 @@
     "pretty-quick": "^1.11.1"
   },
   "dependencies": {
+    "@cliqz/adblocker-electron": "^1.0.2",
+    "cross-fetch": "^3.0.4",
     "discord-rpc": "^3.0.1",
     "electron-canvas-to-buffer": "^2.0.0",
     "electron-google-analytics": "^0.1.0",
