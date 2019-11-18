@@ -519,7 +519,7 @@ async function createWindow() {
       mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
     }
   });
-  globalShortcut.register("CmdOrCtrl+Shift+Space", function() {
+  globalShortcut.register("CmdOrCtrl+Alt+Space", function() {
     mediaControl.playPauseTrack(view);
   });
 
@@ -530,14 +530,14 @@ async function createWindow() {
   globalShortcut.register("MediaPreviousTrack", function() {
     mediaControl.previousTrack(view);
   });
-  globalShortcut.register("CmdOrCtrl+Shift+PageDown", function() {
+  globalShortcut.register("CmdOrCtrl+Alt+Left", function() {
     mediaControl.previousTrack(view);
   });
 
   globalShortcut.register("MediaNextTrack", function() {
     mediaControl.nextTrack(view);
   });
-  globalShortcut.register("CmdOrCtrl+Shift+PageUp", function() {
+  globalShortcut.register("CmdOrCtrl+Alt+Right", function() {
     mediaControl.nextTrack(view);
   });
 
